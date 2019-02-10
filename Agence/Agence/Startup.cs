@@ -1,5 +1,9 @@
 ﻿using Agence.Domain.Entities;
+using Agence.Domain.Entities.Repositories;
 using Agence.Domain.Mapper;
+using Agence.Domain.Repositories;
+using Agence.Domain.Services;
+using Agence.Domain.Services.imp;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -23,16 +27,38 @@ namespace Agence
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            /* Configure DBcontext connection */
+            #region DB Connection
+
             var sqlConnectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<AgenceDBContext>(options =>
-                options.UseSqlServer(
+                options.UseLazyLoadingProxies().UseSqlServer(
                     sqlConnectionString,
                     b => b.MigrationsAssembly(">Agence.Domain")
                 )
             );
 
+            #endregion
+
+            #region Repositories
+
+            services.AddTransient<ICaoUsuarioRepository, CaoUsuarioRepository>();
+            services.AddTransient<IPermissaoSistemaRepository, PermissaoSistemaRepository>();
+
+            #endregion
+
+            #region Services
+
+            services.AddTransient<ICaoUsuarioService, CaoUsuarioService>();
+            services.AddTransient<IPermissaoSistemaService, PermissaoSistemaService>();
+            services.AddTransient<IConsultorService, ConsultorService>();
+
+            #endregion
+
+            #region AutoMapper Configure
+
             ConfigureAutoMapper.Now();
+
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

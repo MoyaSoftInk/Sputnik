@@ -13,6 +13,6 @@ namespace Agence.Domain.Entities
         public short Idtipo { get; set; }
         public string Descricao { get; set; }
 
-        public ICollection<CaoOmbudsman> CaoOmbudsman { get; set; }
+        public virtual ICollection<CaoOmbudsman> CaoOmbudsman { get; set; }
     }
 }

@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace Agence.Domain.Entities
+namespace Agence.Domain.Models
 {
-    public partial class CaoUsuario
+    public class CaoUsuarioModel
     {
-        public CaoUsuario()
+        public CaoUsuarioModel()
         {
-            CaoConhecimentos = new HashSet<CaoConhecimentos>();
-            CaoHistOcorrenciasOs = new HashSet<CaoHistOcorrenciasOs>();
-            CaoPontosConhecimento = new HashSet<CaoPontosConhecimento>();
+
         }
 
         public string CoUsuario { get; set; }
@@ -42,9 +41,5 @@ namespace Agence.Domain.Entities
         public string NoCidade { get; set; }
         public string UfCidade { get; set; }
         public DateTime? DtExpedicao { get; set; }
-
-        public virtual ICollection<CaoConhecimentos> CaoConhecimentos { get; set; }
-        public virtual ICollection<CaoHistOcorrenciasOs> CaoHistOcorrenciasOs { get; set; }
-        public virtual ICollection<CaoPontosConhecimento> CaoPontosConhecimento { get; set; }
     }
 }

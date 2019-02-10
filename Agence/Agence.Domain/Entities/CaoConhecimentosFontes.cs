@@ -11,6 +11,6 @@ namespace Agence.Domain.Entities
         public string Arquivo { get; set; }
         public string Caminho { get; set; }
 
-        public CaoConhecimentos IdconhecimentoNavigation { get; set; }
+        public virtual CaoConhecimentos IdconhecimentoNavigation { get; set; }
     }
 }

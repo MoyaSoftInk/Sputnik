@@ -10,7 +10,7 @@
         /// </summary>
         /// <param name="id">The id.</param>
         /// <returns>Int Value</returns>
-        TKey Delete(TKey Id);
+        TKey Delete(TKey id);
 
 
         /// <summary>

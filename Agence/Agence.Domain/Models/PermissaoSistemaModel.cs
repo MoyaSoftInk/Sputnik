@@ -1,9 +1,13 @@
-﻿namespace Agence.Domain.Entities
+﻿namespace Agence.Domain.Models
 {
     using System;
 
-    public partial class PermissaoSistema
+    public class PermissaoSistemaModel
     {
+        public PermissaoSistemaModel()
+        {
+
+        }
         public string CoUsuario { get; set; }
         public decimal CoTipoUsuario { get; set; }
         public decimal CoSistema { get; set; }

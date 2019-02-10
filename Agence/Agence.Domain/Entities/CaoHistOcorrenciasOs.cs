@@ -14,7 +14,7 @@ namespace Agence.Domain.Entities
         public string Responsavel { get; set; }
         public DateTime? DataFechamento { get; set; }
 
-        public CaoOs CoOsNavigation { get; set; }
-        public CaoUsuario CoUsuarioNavigation { get; set; }
+        public virtual CaoOs CoOsNavigation { get; set; }
+        public virtual CaoUsuario CoUsuarioNavigation { get; set; }
     }
 }

@@ -33,6 +33,6 @@ namespace Agence.Domain.Entities
         public int? CoEmail { get; set; }
         public int? CoOsProspectRel { get; set; }
 
-        public ICollection<CaoHistOcorrenciasOs> CaoHistOcorrenciasOs { get; set; }
+        public virtual ICollection<CaoHistOcorrenciasOs> CaoHistOcorrenciasOs { get; set; }
     }
 }

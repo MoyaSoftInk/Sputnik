@@ -19,8 +19,8 @@ namespace Agence.Domain.Entities
         public string Usuario { get; set; }
         public DateTime? Datahora { get; set; }
 
-        public CaoUsuario UsuarioNavigation { get; set; }
-        public ICollection<CaoConhecimentosFontes> CaoConhecimentosFontes { get; set; }
-        public ICollection<CaoPontosConhecimento> CaoPontosConhecimento { get; set; }
+        public virtual CaoUsuario UsuarioNavigation { get; set; }
+        public virtual ICollection<CaoConhecimentosFontes> CaoConhecimentosFontes { get; set; }
+        public virtual ICollection<CaoPontosConhecimento> CaoPontosConhecimento { get; set; }
     }
 }

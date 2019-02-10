@@ -14,6 +14,6 @@ namespace Agence.Domain.Entities
         public short QtdVisual { get; set; }
         public int Pontuacao { get; set; }
 
-        public ICollection<CaoPontosConhecimento> CaoPontosConhecimento { get; set; }
+        public virtual ICollection<CaoPontosConhecimento> CaoPontosConhecimento { get; set; }
     }
 }

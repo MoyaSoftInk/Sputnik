@@ -12,7 +12,7 @@ namespace Agence.Domain.Entities
         public string Comentario { get; set; }
         public short CoEscritorio { get; set; }
 
-        public CaoCategoriasOmbudsman IdcategoriaNavigation { get; set; }
-        public CaoTipoOmbudsman IdtipoNavigation { get; set; }
+        public virtual CaoCategoriasOmbudsman IdcategoriaNavigation { get; set; }
+        public virtual CaoTipoOmbudsman IdtipoNavigation { get; set; }
     }
 }
