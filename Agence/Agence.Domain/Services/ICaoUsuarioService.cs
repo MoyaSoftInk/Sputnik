@@ -24,9 +24,7 @@
         /// </summary>
         /// <param name="coUsuarioId"></param>
         /// <returns></returns>
-        CaoUsuarioModel Get(string coUsuarioId);
-
-        //PagedElements<Role> Get(SpecificationModel specificationModel);
+        CaoUsuarioModel Get(string coUsuarioId);        
 
         /// <summary>
         /// Update a Cao Usuario.

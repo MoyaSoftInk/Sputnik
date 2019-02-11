@@ -43,6 +43,9 @@ namespace Agence
 
             services.AddTransient<ICaoUsuarioRepository, CaoUsuarioRepository>();
             services.AddTransient<IPermissaoSistemaRepository, PermissaoSistemaRepository>();
+            services.AddTransient<ICaoFaturaRepository, CaoFaturaRepository>();
+            services.AddTransient<ICaoOsRepository, CaoOsRepository>();
+            services.AddTransient<ICaoSalarioRepository, CaoSalarioRepository>();
 
             #endregion
 
@@ -51,6 +54,9 @@ namespace Agence
             services.AddTransient<ICaoUsuarioService, CaoUsuarioService>();
             services.AddTransient<IPermissaoSistemaService, PermissaoSistemaService>();
             services.AddTransient<IConsultorService, ConsultorService>();
+            services.AddTransient<ICaoFaturaService, CaoFaturaService>();
+            services.AddTransient<ICaoOsService, CaoOsService>();
+            services.AddTransient<ICaoSalarioService, CaoSalarioService>();
 
             #endregion
 

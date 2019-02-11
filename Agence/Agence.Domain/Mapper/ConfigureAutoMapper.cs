@@ -34,6 +34,10 @@
                     .ForMember(x => x.CoUser, x => x.MapFrom(y => y.CoUsuario))
                     .ForMember(x => x.NoUser, x => x.MapFrom(y => y.NoUsuario));
 
+                cfg.CreateMap<CaoUsuarioModel, RelatorioDTO>()
+                   .ForMember(x => x.CoUsuario, x => x.MapFrom(y => y.CoUsuario))
+                   .ForMember(x => x.NoUsuario, x => x.MapFrom(y => y.NoUsuario));
+
                 #endregion
             });
             

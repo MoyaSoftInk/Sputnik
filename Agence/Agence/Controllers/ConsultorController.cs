@@ -1,5 +1,6 @@
 ﻿namespace Agence.Controllers
 {
+    using Agence.Domain.DTO.Inputs;
     using Agence.Domain.Services;
     using Microsoft.AspNetCore.Mvc;
     using System;
@@ -45,7 +46,26 @@
                 return BadRequest(ModelState);
             }
         }
-        
+
+        [HttpGet]
+        [Route("GetRelatorio")]
+        public IActionResult GetRelatorio(RelatorioInput relatorioInput)
+        {
+            try
+            {
+                var result = this.consultorService.GetRelatorio(relatorioInput);
+                if (result.StatusCode.Equals(HttpStatusCode.OK))
+                    return Ok(result);
+                else
+                    return BadRequest(result);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return BadRequest(ModelState);
+            }
+        }
+
         #endregion Methods
     }
 }
