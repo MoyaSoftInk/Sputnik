@@ -1,11 +1,19 @@
+<div class="search-div">
+  <mat-form-field class="search-form-field" floatLabel="never">
+    <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+    <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
 <div class="mat-elevation-z8">
-  <mat-table [dataSource]="listData">
+  <mat-table [dataSource]="listData" matSort>
     <ng-container matColumnDef="coUser">
       <mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px', 'display':'none'}">Código Consultor</mat-header-cell>
       <mat-cell *matCellDef="let element" [ngStyle]="{'display': 'none'}">{{element.coUser}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="noUser">
-      <mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px', 'padding-left' : '20px'}">Consultor</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px', 'padding-left' : '20px'}" mat-sort-header>Consultor</mat-header-cell>
       <mat-cell *matCellDef="let element" [ngStyle]="{'padding-left' : '20px'}">{{element.noUser}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="loading">
@@ -23,4 +31,5 @@
     <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':listData!=null}"></mat-footer-row>
     <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(listData!=null && listData.data.length==0)}"></mat-footer-row>
   </mat-table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
 </div>
