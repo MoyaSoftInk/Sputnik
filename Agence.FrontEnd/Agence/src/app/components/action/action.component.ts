@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ActionComponent implements OnInit {
 
-  @Input() consultors: any[];
+
 
   constructor() { }
 

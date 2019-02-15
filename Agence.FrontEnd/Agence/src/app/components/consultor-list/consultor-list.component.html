@@ -27,8 +27,8 @@
       </mat-footer-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns" (click)="selectedRow(row); highlightedRows.push(row)"
-      [style.background]="highlightedRows.indexOf(row) != -1 && !isSelectedRow(row)?'lightblue' : 'white'"></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns" (click)="selectedRow(row); highlightedRows.push(row); sendMessage()"
+      [style.background]="highlightedRows.indexOf(row) != -1?'lightblue' : 'white'"></mat-row>
     <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':listData!=null}"></mat-footer-row>
     <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(listData!=null && listData.data.length==0)}"></mat-footer-row>
   </mat-table>

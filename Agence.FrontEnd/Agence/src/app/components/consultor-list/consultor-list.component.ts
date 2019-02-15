@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
 import { ConsultorService } from 'src/app/services/consultor.service';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import { Consultor } from 'src/app/models/consultor';
 
 @Component({
   selector: 'app-consultor-list',
@@ -15,10 +16,13 @@ export class ConsultorListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   searchKey: string;
   highlightedRows = [];
+  consultors: Consultor[];
+  @Output() messageEvent = new EventEmitter<Consultor[]>();
   constructor(private consultorService: ConsultorService) { }
 
   ngOnInit() {
-      this.consultorService.getConsultors().subscribe(ConsultorResponse => {
+    this.consultors = new Array();
+    this.consultorService.getConsultors().subscribe(ConsultorResponse => {
       this.listData = new MatTableDataSource(ConsultorResponse.consultorDto.consultors);
       this.listData.sort = this.sort;
       this.listData.paginator = this.paginator;
@@ -39,13 +43,26 @@ export class ConsultorListComponent implements OnInit {
     this.listData.filter = this.searchKey.trim().toLowerCase();
   }
 
-  selectedRow(row: any) {
-    console.log(row);
-    return false;
+  selectedRow(row: Consultor) {
+
+    if (!this.isSelectedRow(row)) {
+      this.consultors.push(row);
+    } else {
+      this.unSelectRow(row);
+    }
   }
 
-  isSelectedRow(row: any) {
-    return false;
+  unSelectRow(row: Consultor) {
+    const index = this.consultors.indexOf(row, 0);
+    if (index > -1) {
+      this.consultors = this.consultors.splice(index, 1);
+    }
+  }
+  isSelectedRow(row: Consultor): boolean {
+    return this.consultors.some(c => c.coUser === row.coUser);
   }
 
+  sendMessage() {
+    this.messageEvent.emit(this.consultors)
+  }
 }

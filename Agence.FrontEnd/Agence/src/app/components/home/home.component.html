@@ -16,13 +16,13 @@
       </mat-toolbar>
       <mat-grid-list cols="3">
         <mat-grid-tile [colspan]="2" [rowspan]="2">
-          <div class="controles-container">
-            <app-consultor-list></app-consultor-list>
+          <div class="controles-container" >
+            <app-consultor-list (messageEvent)="receiveMessage($event)"></app-consultor-list>
           </div>
         </mat-grid-tile>
         <mat-grid-tile [colspan]="1" [rowspan]="2">
           <div class="controles-container">
-          <app-action [consultors]=""></app-action>
+          <app-action></app-action>
           </div>
         </mat-grid-tile>
       </mat-grid-list>

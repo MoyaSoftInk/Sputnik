@@ -3,6 +3,7 @@ import { Observable, of, from } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { ConsultorResponse } from '../models/response/consultorResponse';
+import { Consultor } from '../models/consultor';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -14,6 +15,8 @@ const baseUri = 'https://localhost:44365/api/Consultor/GetConsultors';
 })
 export class ConsultorService {
 
+  consultors: Consultor[];
+
   constructor(
     private http: HttpClient,
     ) { }
@@ -24,7 +27,6 @@ export class ConsultorService {
         .pipe( catchError(this.handleError<ConsultorResponse>('getConsultors'))
         );
     }
-
   /**
    * Handle Http operation that failed.
    * Let the app continue.
