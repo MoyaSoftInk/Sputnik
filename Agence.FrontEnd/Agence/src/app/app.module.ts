@@ -19,7 +19,9 @@ import { MatTableModule,
    MatPaginatorModule,
    MatSortModule,
    MatInputModule,
-   MatFormFieldModule} from '@angular/material';
+   MatFormFieldModule,
+   MatCheckboxModule,
+   MatSelectModule} from '@angular/material';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ConsultorListComponent } from './components/consultor-list/consultor-list.component';
 
@@ -49,7 +51,9 @@ import { ConsultorListComponent } from './components/consultor-list/consultor-li
     MatFormFieldModule,
     ReactiveFormsModule,
     FormsModule,
-    MatInputModule
+    MatInputModule,
+    MatCheckboxModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
