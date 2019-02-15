@@ -2,6 +2,7 @@
 {
     using Agence.Domain.DTO.Inputs;
     using Agence.Domain.Services;
+    using Microsoft.AspNetCore.Cors;
     using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Net;
@@ -28,8 +29,10 @@
 
         #region Methods
 
+        [EnableCors("MyPolicy")]
         [HttpGet]
         [Route("GetConsultors")]
+
         public IActionResult GetContultors()
         {
             try
@@ -47,6 +50,7 @@
             }
         }
 
+        [EnableCors("MyPolicy")]
         [HttpGet]
         [Route("GetRelatorio")]
         public IActionResult GetRelatorio(RelatorioInput relatorioInput)

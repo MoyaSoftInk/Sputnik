@@ -7,7 +7,25 @@
       <span>Agence</span>
     </mat-toolbar>
     <!-- Add Content Here -->
-    <div class="mat-app-background basic-container">
+
+    <div class="container">
+      <mat-toolbar>
+        <span class="fill-remaining-space"></span>
+        <span>Consultores</span>
+        <span class="fill-remaining-space"></span>
+      </mat-toolbar>
+      <mat-grid-list cols="3">
+        <mat-grid-tile [colspan]="2" [rowspan]="2">
+          <div class="controles-container">
+            <app-consultor-list></app-consultor-list>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="2">
+          <div class="controles-container">
+jose
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
     </div>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

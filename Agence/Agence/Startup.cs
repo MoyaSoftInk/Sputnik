@@ -27,6 +27,13 @@ namespace Agence
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
             #region DB Connection
 
             var sqlConnectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -78,7 +85,7 @@ namespace Agence
             {
                 app.UseHsts();
             }
-
+            app.UseCors("MyPolicy");
             app.UseHttpsRedirection();
             app.UseMvc();
         }
