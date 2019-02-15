@@ -3,7 +3,6 @@ import { Observable, of, from } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { ConsultorResponse } from '../models/response/consultorResponse';
-import { ConsultorDTO } from '../models/dto/consultorDTO';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };

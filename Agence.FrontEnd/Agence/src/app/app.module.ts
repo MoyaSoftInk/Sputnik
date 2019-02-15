@@ -24,12 +24,14 @@ import { MatTableModule,
    MatSelectModule} from '@angular/material';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ConsultorListComponent } from './components/consultor-list/consultor-list.component';
+import { ActionComponent } from './components/action/action.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    ConsultorListComponent
+    ConsultorListComponent,
+    ActionComponent
   ],
   imports: [
     HttpClientModule,

@@ -1,12 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ConsultorService } from 'src/app/services/consultor.service';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
-import {SelectionModel} from '@angular/cdk/collections';
-
-export interface PeriodicElement {
-  coUser: string;
-  noUser: string;
-}
 
 @Component({
   selector: 'app-consultor-list',
@@ -16,15 +10,15 @@ export interface PeriodicElement {
 export class ConsultorListComponent implements OnInit {
 
   listData: MatTableDataSource<any>;
-  displayedColumns: string[] = ['coUser', 'select', 'noUser'];
+  displayedColumns: string[] = ['coUser', 'noUser'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   searchKey: string;
-  selection = new SelectionModel<PeriodicElement>(true, []);
+  highlightedRows = [];
   constructor(private consultorService: ConsultorService) { }
 
   ngOnInit() {
-    this.consultorService.getConsultors().subscribe(ConsultorResponse => {
+      this.consultorService.getConsultors().subscribe(ConsultorResponse => {
       this.listData = new MatTableDataSource(ConsultorResponse.consultorDto.consultors);
       this.listData.sort = this.sort;
       this.listData.paginator = this.paginator;
@@ -44,18 +38,14 @@ export class ConsultorListComponent implements OnInit {
   applyFilter() {
     this.listData.filter = this.searchKey.trim().toLowerCase();
   }
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.listData.data.length;
-    return numSelected === numRows;
+
+  selectedRow(row: any) {
+    console.log(row);
+    return false;
   }
 
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ?
-        this.selection.clear() :
-        this.listData.data.forEach(row => this.selection.select(row));
+  isSelectedRow(row: any) {
+    return false;
   }
 
 }
