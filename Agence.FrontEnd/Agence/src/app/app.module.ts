@@ -21,7 +21,9 @@ import { MatTableModule,
    MatInputModule,
    MatFormFieldModule,
    MatCheckboxModule,
-   MatSelectModule} from '@angular/material';
+   MatSelectModule,
+   MatDatepickerModule,
+   MatNativeDateModule} from '@angular/material';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ConsultorListComponent } from './components/consultor-list/consultor-list.component';
 import { ActionComponent } from './components/action/action.component';
@@ -55,7 +57,9 @@ import { ActionComponent } from './components/action/action.component';
     FormsModule,
     MatInputModule,
     MatCheckboxModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

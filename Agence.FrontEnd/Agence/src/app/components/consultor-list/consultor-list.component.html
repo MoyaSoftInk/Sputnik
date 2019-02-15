@@ -1,36 +1,50 @@
-<div class="search-div">
-  <mat-form-field class="search-form-field" floatLabel="never">
-    <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
-    <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
-      <mat-icon>close</mat-icon>
-    </button>
-  </mat-form-field>
-</div>
-<div class="mat-elevation-z8">
-  <mat-table [dataSource]="listData" matSort>
-    <ng-container matColumnDef="coUser">
-      <mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px', 'display':'none'}">Código Consultor</mat-header-cell>
-      <mat-cell *matCellDef="let element" [ngStyle]="{'display': 'none'}">{{element.coUser}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="noUser">
-      <mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px', 'padding-left' : '20px'}" mat-sort-header>Consultor</mat-header-cell>
-      <mat-cell *matCellDef="let element" [ngStyle]="{'padding-left' : '20px'}">{{element.noUser}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="loading">
-      <mat-footer-cell *matFooterCellDef colspan="1">
-        Cargando consultores...
-      </mat-footer-cell>
-    </ng-container>
-    <ng-container matColumnDef="noData">
-      <mat-footer-cell *matFooterCellDef colspan="6">
-        No hay datos.
-      </mat-footer-cell>
-    </ng-container>
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns" (click)="selectedRow(row); highlightedRows.push(row); sendMessage()"
-      [style.background]="highlightedRows.indexOf(row) != -1?'lightblue' : 'white'"></mat-row>
-    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':listData!=null}"></mat-footer-row>
-    <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(listData!=null && listData.data.length==0)}"></mat-footer-row>
-  </mat-table>
-  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+<div class="normal-form">
+    <div [formGroup]="formGroup" class="controles-container">
+        <mat-form-field>
+          <input formControlName="initDate" matInput [(ngModel)]="relatorioInput.dateInit" [matDatepicker]="picker" placeholder="Fecha Inicial">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="endDate" [(ngModel)]="relatorioInput.dateEnd" matInput [matDatepicker]="picker2" placeholder="Fecha Fin">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+  <div class="search-div">
+    <mat-form-field class="search-form-field" floatLabel="never">
+      <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+      <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <div class="mat-elevation-z8">
+    <mat-table [dataSource]="listData" matSort>
+      <ng-container matColumnDef="coUser">
+        <mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px', 'display':'none'}">Código Consultor</mat-header-cell>
+        <mat-cell *matCellDef="let element" [ngStyle]="{'display': 'none'}">{{element.coUser}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="noUser">
+        <mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size': '20px', 'padding-left' : '20px'}" mat-sort-header>Consultor</mat-header-cell>
+        <mat-cell *matCellDef="let element" [ngStyle]="{'padding-left' : '20px'}">{{element.noUser}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="loading">
+        <mat-footer-cell *matFooterCellDef colspan="1">
+          Cargando consultores...
+        </mat-footer-cell>
+      </ng-container>
+      <ng-container matColumnDef="noData">
+        <mat-footer-cell *matFooterCellDef colspan="6">
+          No hay datos.
+        </mat-footer-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns" (click)="selectedRow(row); highlightedRows.push(row); sendMessage()"
+        [style.background]="highlightedRows.indexOf(row) != -1?'lightblue' : 'white'"></mat-row>
+      <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':listData!=null}"></mat-footer-row>
+      <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(listData!=null && listData.data.length==0)}"></mat-footer-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+  </div>
 </div>

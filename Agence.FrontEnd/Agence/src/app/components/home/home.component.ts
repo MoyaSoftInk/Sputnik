@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Consultor } from 'src/app/models/consultor';
+import { RelatorioInput } from 'src/app/models/inputs/relatorioInput';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,7 @@ import { Consultor } from 'src/app/models/consultor';
 })
 export class HomeComponent implements OnInit {
 
-  consultors: Consultor[];
+  relatorioInput: RelatorioInput;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -20,12 +21,17 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver) {
+    this.relatorioInput = new RelatorioInput();
+    this.relatorioInput.consultor = new Array();
+
   }
 
   ngOnInit(): void {
+    this.relatorioInput = new RelatorioInput();
+    this.relatorioInput.consultor = new Array();
   }
 
   receiveMessage($event) {
-    this.consultors = $event
+    this.relatorioInput = $event
   }
 }

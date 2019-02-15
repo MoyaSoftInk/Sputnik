@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, EventEmitter, Output } from '@angular/cor
 import { ConsultorService } from 'src/app/services/consultor.service';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { Consultor } from 'src/app/models/consultor';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { RelatorioInput } from 'src/app/models/inputs/relatorioInput';
 
 @Component({
   selector: 'app-consultor-list',
@@ -17,11 +19,34 @@ export class ConsultorListComponent implements OnInit {
   searchKey: string;
   highlightedRows = [];
   consultors: Consultor[];
-  @Output() messageEvent = new EventEmitter<Consultor[]>();
-  constructor(private consultorService: ConsultorService) { }
+  relatorioInput: RelatorioInput;
+
+  @Output() messageEvent = new EventEmitter<RelatorioInput>();
+
+  formGroup = new FormGroup({
+    initDate: new FormControl(''),
+    endDate: new FormControl('')
+  });
+
+  constructor(private consultorService: ConsultorService) {
+    this.relatorioInput = new RelatorioInput();
+    this.relatorioInput.dateInit = new Date();
+    this.relatorioInput.dateEnd = new Date();
+    this.relatorioInput.consultor = new Array();
+  }
+
+  initializeFormGroup() {
+    this.formGroup.setValue({
+      initDate: '',
+      endDate: ''
+    });
+  }
 
   ngOnInit() {
-    this.consultors = new Array();
+    this.relatorioInput = new RelatorioInput();
+    this.relatorioInput.dateInit = new Date();
+    this.relatorioInput.dateEnd = new Date();
+    this.relatorioInput.consultor = new Array();
     this.consultorService.getConsultors().subscribe(ConsultorResponse => {
       this.listData = new MatTableDataSource(ConsultorResponse.consultorDto.consultors);
       this.listData.sort = this.sort;
@@ -46,23 +71,27 @@ export class ConsultorListComponent implements OnInit {
   selectedRow(row: Consultor) {
 
     if (!this.isSelectedRow(row)) {
-      this.consultors.push(row);
+      this.relatorioInput.consultor.push(row);
     } else {
       this.unSelectRow(row);
     }
   }
 
   unSelectRow(row: Consultor) {
-    const index = this.consultors.indexOf(row, 0);
+    const index = this.relatorioInput.consultor.indexOf(row, 0);
     if (index > -1) {
-      this.consultors = this.consultors.splice(index, 1);
+      this.relatorioInput.consultor = this.relatorioInput.consultor.splice(index, 1);
     }
   }
   isSelectedRow(row: Consultor): boolean {
-    return this.consultors.some(c => c.coUser === row.coUser);
+    return this.relatorioInput.consultor.some(c => c.coUser === row.coUser);
   }
 
   sendMessage() {
-    this.messageEvent.emit(this.consultors)
+    this.messageEvent.emit(this.relatorioInput);
+  }
+
+  saveInitDate() {
+    this.relatorioInput.dateInit = this.formGroup.controls.initDate.value();
   }
 }

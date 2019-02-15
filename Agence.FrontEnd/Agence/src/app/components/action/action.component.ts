@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Consultor } from 'src/app/models/consultor';
+import { RelatorioInput } from 'src/app/models/inputs/relatorioInput';
 
 @Component({
   selector: 'app-action',
@@ -8,10 +10,15 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ActionComponent implements OnInit {
 
 
+  @Input() childMessage: RelatorioInput;
 
   constructor() { }
 
   ngOnInit() {
+    this.childMessage = new RelatorioInput();
   }
 
+  relatorio(){
+    console.log(this.childMessage);
+  }
 }
