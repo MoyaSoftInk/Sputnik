@@ -3,12 +3,14 @@ import { Observable, of, from } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { ConsultorResponse } from '../models/response/consultorResponse';
+import { RelatorioResponse } from '../models/response/relatorioResponse';
 import { Consultor } from '../models/consultor';
+import { RelatorioInput } from '../models/inputs/relatorioInput';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-const baseUri = 'https://localhost:44365/api/Consultor/GetConsultors';
+const baseUri = 'https://localhost:44365/api/Consultor/';
 
 @Injectable({
   providedIn: 'root'
@@ -16,17 +18,30 @@ const baseUri = 'https://localhost:44365/api/Consultor/GetConsultors';
 export class ConsultorService {
 
   consultors: Consultor[];
+  relatorioInput: RelatorioInput;
 
   constructor(
     private http: HttpClient,
-    ) { }
+    ) {
+      this.relatorioInput = new RelatorioInput();
+    }
 
     /** Get Consultors */
     getConsultors(): Observable<ConsultorResponse> {
-      return this.http.get<ConsultorResponse>(baseUri)
+      return this.http.get<ConsultorResponse>(baseUri + 'GetConsultors')
         .pipe( catchError(this.handleError<ConsultorResponse>('getConsultors'))
         );
     }
+
+    /** Get Relatorio */
+    getRelatorio(relatorioInput: RelatorioInput): Observable<RelatorioResponse> {
+      const body = JSON.stringify(relatorioInput);
+      return (
+        this.http.post<RelatorioResponse>(baseUri + 'GetRelatorio', body, httpOptions)
+        .pipe( catchError( this.handleError<RelatorioResponse>('GetRelatorio') ) )
+      );
+    }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.

@@ -21,11 +21,11 @@
         /// <summary>
         /// Get or Set DateInit
         /// </summary>
-        public DateTime DateInit { get; set; }
+        public string DateInit { get; set; }
 
         /// <summary>
         /// Get or Set DateEnd
         /// </summary>
-        public DateTime DateEnd { get; set; }
+        public string DateEnd { get; set; }
     }
 }

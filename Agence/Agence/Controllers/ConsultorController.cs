@@ -51,9 +51,9 @@
         }
 
         [EnableCors("MyPolicy")]
-        [HttpGet]
+        [HttpPost]
         [Route("GetRelatorio")]
-        public IActionResult GetRelatorio(RelatorioInput relatorioInput)
+        public IActionResult GetRelatorio([FromBody] RelatorioInput relatorioInput)
         {
             try
             {
@@ -69,7 +69,7 @@
                 return BadRequest(ModelState);
             }
         }
-
+ 
         #endregion Methods
     }
 }

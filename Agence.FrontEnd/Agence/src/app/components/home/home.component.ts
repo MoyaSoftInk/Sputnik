@@ -22,13 +22,13 @@ export class HomeComponent implements OnInit {
   constructor(
     private breakpointObserver: BreakpointObserver) {
     this.relatorioInput = new RelatorioInput();
-    this.relatorioInput.consultor = new Array();
+    this.relatorioInput.Consultors = new Array();
 
   }
 
   ngOnInit(): void {
     this.relatorioInput = new RelatorioInput();
-    this.relatorioInput.consultor = new Array();
+    this.relatorioInput.Consultors = new Array();
   }
 
   receiveMessage($event) {

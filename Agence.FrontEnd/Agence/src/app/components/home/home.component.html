@@ -7,25 +7,30 @@
       <span>Agence</span>
     </mat-toolbar>
     <!-- Add Content Here -->
-
-    <div class="container">
+    <div class="mdc-layout-grid">
       <mat-toolbar>
         <span class="fill-remaining-space"></span>
         <span>Consultores</span>
         <span class="fill-remaining-space"></span>
       </mat-toolbar>
-      <mat-grid-list cols="3">
-        <mat-grid-tile [colspan]="2" [rowspan]="2">
-          <div class="controles-container" >
-            <app-consultor-list (messageEvent)="receiveMessage($event)"></app-consultor-list>
+      <div class="mdc-layout-grid__inner">
+        <mat-grid-list cols="3">
+          <div class="mdc-layout-grid__cell">
+            <mat-grid-tile [colspan]="2" [rowspan]="1">
+              <div>
+                <app-consultor-list (messageEvent)="receiveMessage($event)"></app-consultor-list>
+              </div>
+            </mat-grid-tile>
           </div>
-        </mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="2">
-          <div class="controles-container">
-          <app-action [childMessage]="relatorioInput"></app-action>
+          <div class="mdc-layout-grid__cell">
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+              <div>
+                <app-action [childMessage]="relatorioInput"></app-action>
+              </div>
+            </mat-grid-tile>
           </div>
-        </mat-grid-tile>
-      </mat-grid-list>
+        </mat-grid-list>
+      </div>
     </div>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

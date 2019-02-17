@@ -100,11 +100,14 @@
         public RelatorioResponse GetRelatorio(RelatorioInput relatorioInput)
         {
             RelatorioResponse relatorioResponse = new RelatorioResponse();
+            DateTime dateInit = DateTime.Parse(relatorioInput.DateInit);
+            DateTime dateEndt = DateTime.Parse(relatorioInput.DateEnd);
+
             try
             {
                 foreach(var consultor in relatorioInput.Consultors)
                 {
-                    GetRelatorio(ref relatorioResponse, consultor.CoUser, relatorioInput.DateInit, relatorioInput.DateEnd);
+                    GetRelatorio(ref relatorioResponse, consultor.CoUser, dateInit, dateEndt);
                 }
 
                 if (relatorioResponse.Relatorios.Any())

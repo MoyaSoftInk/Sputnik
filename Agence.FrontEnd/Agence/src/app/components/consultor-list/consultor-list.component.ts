@@ -4,6 +4,7 @@ import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { Consultor } from 'src/app/models/consultor';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { RelatorioInput } from 'src/app/models/inputs/relatorioInput';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-consultor-list',
@@ -20,6 +21,8 @@ export class ConsultorListComponent implements OnInit {
   highlightedRows = [];
   consultors: Consultor[];
   relatorioInput: RelatorioInput;
+  dateInit: string;
+  dateEnd: string;
 
   @Output() messageEvent = new EventEmitter<RelatorioInput>();
 
@@ -28,11 +31,11 @@ export class ConsultorListComponent implements OnInit {
     endDate: new FormControl('')
   });
 
-  constructor(private consultorService: ConsultorService) {
+  constructor(
+    private consultorService: ConsultorService,
+    public datepipe: DatePipe) {
     this.relatorioInput = new RelatorioInput();
-    this.relatorioInput.dateInit = new Date();
-    this.relatorioInput.dateEnd = new Date();
-    this.relatorioInput.consultor = new Array();
+    this.relatorioInput.Consultors = new Array();
   }
 
   initializeFormGroup() {
@@ -44,9 +47,8 @@ export class ConsultorListComponent implements OnInit {
 
   ngOnInit() {
     this.relatorioInput = new RelatorioInput();
-    this.relatorioInput.dateInit = new Date();
-    this.relatorioInput.dateEnd = new Date();
-    this.relatorioInput.consultor = new Array();
+    this.relatorioInput.Consultors = new Array();
+
     this.consultorService.getConsultors().subscribe(ConsultorResponse => {
       this.listData = new MatTableDataSource(ConsultorResponse.consultorDto.consultors);
       this.listData.sort = this.sort;
@@ -71,27 +73,31 @@ export class ConsultorListComponent implements OnInit {
   selectedRow(row: Consultor) {
 
     if (!this.isSelectedRow(row)) {
-      this.relatorioInput.consultor.push(row);
+      this.relatorioInput.Consultors.push(row);
     } else {
       this.unSelectRow(row);
     }
   }
 
   unSelectRow(row: Consultor) {
-    const index = this.relatorioInput.consultor.indexOf(row, 0);
+    const index = this.relatorioInput.Consultors.indexOf(row, 0);
     if (index > -1) {
-      this.relatorioInput.consultor = this.relatorioInput.consultor.splice(index, 1);
+      this.relatorioInput.Consultors = this.relatorioInput.Consultors.splice(index, 1);
     }
   }
   isSelectedRow(row: Consultor): boolean {
-    return this.relatorioInput.consultor.some(c => c.coUser === row.coUser);
+    return this.relatorioInput.Consultors.some(c => c.coUser === row.coUser);
   }
 
   sendMessage() {
+    console.log(this.dateInit);
+    this.relatorioInput.DateInit = this.changeFormatDate(this.dateInit);
+    console.log(this.dateEnd);
+    this.relatorioInput.DateEnd = this.changeFormatDate(this.dateEnd);
     this.messageEvent.emit(this.relatorioInput);
   }
 
-  saveInitDate() {
-    this.relatorioInput.dateInit = this.formGroup.controls.initDate.value();
+  private changeFormatDate(date: string): string {
+    return this.datepipe.transform(date, 'yyyy-MM-dd');
   }
 }
