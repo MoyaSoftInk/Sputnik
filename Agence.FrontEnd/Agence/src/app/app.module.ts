@@ -30,6 +30,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ConsultorListComponent } from './components/consultor-list/consultor-list.component';
 import { ActionComponent } from './components/action/action.component';
 import { RelatorioComponent } from './components/action/relatorio/relatorio.component';
+import { GraphicsComponent } from './components/action/graphics/graphics.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { RelatorioComponent } from './components/action/relatorio/relatorio.comp
     HomeComponent,
     ConsultorListComponent,
     ActionComponent,
-    RelatorioComponent
+    RelatorioComponent,
+    GraphicsComponent
   ],
   imports: [
     HttpClientModule,
