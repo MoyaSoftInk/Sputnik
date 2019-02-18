@@ -1,35 +1,52 @@
 import {
   Component,
-  OnInit,
+  Inject,
   ViewChild,
   ElementRef,
   AfterViewInit,
+  OnInit
 } from '@angular/core';
 
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
+import { GraphicsDTO } from 'src/app/models/dto/GraphicsDTO';
 import 'apexcharts';
+import { GraphicsInterface } from 'src/app/interface/graphicsInterface';
 
 @Component({
   selector: 'app-graphics',
   templateUrl: './graphics.component.html',
   styleUrls: ['./graphics.component.scss']
 })
-export class GraphicsComponent implements AfterViewInit {
+export class GraphicsComponent implements OnInit {
 
   data = [];
+  custoFixo = [];
+  categories = [];
   lastDate = 0;
   title = 'sonar-trading';
+  graphics: GraphicsDTO[];
 
   @ViewChild('chart')
   chart: ElementRef;
-  constructor() { }
+  constructor(public dialogRef: MatDialogRef<GraphicsComponent>, @Inject(MAT_DIALOG_DATA) public graphicsInterface: GraphicsInterface)
+  {
 
-  ngAfterViewInit() {
+
+    this.graphics = this.graphicsInterface.graphicsDTO;
+
+    console.log(this.graphics);
+    this.prepairData();
+    console.log(this.data);
+    console.log(this.categories);
+  }
+
+  ngOnInit() {
 
     var options = {
       annotations: {
         points: [{
-          x: 'Bananas',
+          x: '',
           seriesIndex: 0,
           label: {
             borderColor: '#775DD0',
@@ -38,7 +55,7 @@ export class GraphicsComponent implements AfterViewInit {
               color: '#fff',
               background: '#775DD0',
             },
-            text: 'Bananas are good',
+            text: '',
           }
         }]
       },
@@ -59,8 +76,14 @@ export class GraphicsComponent implements AfterViewInit {
         width: 2
       },
       series: [{
-        name: 'Servings',
-        data: [44, 55, 41, 67, 22, 43, 21, 33, 45, 31, 87, 65, 35]
+        name: 'Receita Liquida',
+        type: 'column',
+        data: this.data
+      },
+      {
+        name: 'Custo Fixo',
+        type: 'line',
+        data: this.custoFixo
       }],
       grid: {
         row: {
@@ -69,15 +92,13 @@ export class GraphicsComponent implements AfterViewInit {
       },
       xaxis: {
         labels: {
-          rotate: -45
+          rotate: -10
         },
-        categories: ['Apples', 'Oranges', 'Strawberries', 'Pineapples', 'Mangoes', 'Bananas',
-          'Blackberries', 'Pears', 'Watermelons', 'Cherries', 'Pomegranates', 'Tangerines', 'Papayas'
-        ],
+        categories: this.categories,
       },
       yaxis: {
         title: {
-          text: 'Servings',
+          text: 'Receita Liquida.',
         },
 
       },
@@ -118,16 +139,12 @@ export class GraphicsComponent implements AfterViewInit {
     }
   }
 
-  getNewSeries(baseval, yrange) {
-    const newDate = baseval + 86400000;
-    this.lastDate = newDate;
-    this.data.push({
-      x: newDate,
-      y: Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min,
+  prepairData(){
+    this.graphics.forEach(c => {
+      this.data.push(c.receita);
+      this.categories.push(c.noUsuario);
+      this.custoFixo.push(c.promCustoFixo);
     });
-  }
-  resetData() {
-    this.data = this.data.slice(this.data.length - 10, this.data.length);
   }
 }
 

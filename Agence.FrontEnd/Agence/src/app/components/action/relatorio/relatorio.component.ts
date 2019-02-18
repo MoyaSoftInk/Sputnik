@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { RelatorioDTO } from 'src/app/models/dto/relatorioDTO';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle } from '@angular/material';
 import { RelatorioGroupInterface } from 'src/app/interface/relatorioGroupInterface';
 import { TotalRelatorioInterface } from 'src/app/interface/totalRelatorioInterface';
 import { RelatorioDetailInterface } from 'src/app/interface/relatorioDetailInterface';
@@ -37,19 +37,19 @@ export class RelatorioComponent implements OnInit {
   private prepairData() {
 
     this.relatorioDTOs.forEach(c => {
-      let groupBy: RelatorioGroupInterface = { initial: c.coUsuario, isGroupBy: true };
+      let groupBy: RelatorioGroupInterface = { initial: c.noUsuario, isGroupBy: true };
 
-      groupBy.initial = c.coUsuario;
+      groupBy.initial = c.noUsuario;
       groupBy.isGroupBy = true;
 
-      this.elementData.push(new RelatorioGroupInterface(c.coUsuario, true));
+      this.elementData.push(new RelatorioGroupInterface(c.noUsuario, true));
       c.relatorioDetails.forEach(p => {
         this.elementData.push(new RelatorioDetailInterface(p.date, p.receitaLiquida, p.custoFixo,
-          p.comissao, p.lucro, c.coUsuario));
+          p.comissao, p.lucro, c.noUsuario));
       });
 
       this.elementData.push(new RelatorioDetailInterface('Total:', c.totalComissao, c.totalCustoFixo, c.totalLucro,
-        c.totalReceitaLiquida, c.coUsuario));
+        c.totalReceitaLiquida, c.noUsuario));
     })
   }
 

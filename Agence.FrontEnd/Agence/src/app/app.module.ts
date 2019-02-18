@@ -25,7 +25,8 @@ import { MatTableModule,
    MatSelectModule,
    MatDatepickerModule,
    MatNativeDateModule,
-   MatDialogModule} from '@angular/material';
+   MatDialogModule,
+  MatDialogTitle} from '@angular/material';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ConsultorListComponent } from './components/consultor-list/consultor-list.component';
 import { ActionComponent } from './components/action/action.component';
@@ -70,6 +71,6 @@ import { GraphicsComponent } from './components/action/graphics/graphics.compone
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],
-  entryComponents:[RelatorioComponent]
+  entryComponents:[RelatorioComponent, GraphicsComponent]
 })
 export class AppModule { }

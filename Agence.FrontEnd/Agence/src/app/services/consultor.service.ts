@@ -6,6 +6,7 @@ import { ConsultorResponse } from '../models/response/consultorResponse';
 import { RelatorioResponse } from '../models/response/relatorioResponse';
 import { Consultor } from '../models/consultor';
 import { RelatorioInput } from '../models/inputs/relatorioInput';
+import { GraphicsResponse } from '../models/response/GraphicsResponse';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -42,6 +43,14 @@ export class ConsultorService {
       );
     }
 
+    /** Get Relatorio */
+    getGraphics(relatorioInput: RelatorioInput): Observable<GraphicsResponse> {
+      const body = JSON.stringify(relatorioInput);
+      return (
+        this.http.post<GraphicsResponse>(baseUri + 'GetGraphics', body, httpOptions)
+        .pipe( catchError( this.handleError<GraphicsResponse>('GetGraphics') ) )
+      );
+    }
   /**
    * Handle Http operation that failed.
    * Let the app continue.

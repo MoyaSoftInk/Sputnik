@@ -4,6 +4,7 @@ import { ConsultorService } from 'src/app/services/consultor.service';
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import { RelatorioComponent } from './relatorio/relatorio.component';
 import { RelatorioDTO } from 'src/app/models/dto/relatorioDTO';
+import { GraphicsComponent } from './graphics/graphics.component';
 
 
 @Component({
@@ -19,21 +20,24 @@ export class ActionComponent implements OnInit {
 
   constructor(
     private consultorService: ConsultorService,
-    private dialog: MatDialog) {
+    private RelatorioDialog: MatDialog,
+    private GraphicsDialog: MatDialog,
+    private PizzaDialog: MatDialog) {
    }
 
   ngOnInit() {
     this.childMessage = new RelatorioInput();
   }
-  // openDialog(): void {
-  //   const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-  //     width: '250px',
-  //     data: {name: this.name, animal: this.animal}
-  //   });
   relatorio() {
     this.consultorService.getRelatorio(this.childMessage).subscribe(relatorioResponse => {
 
-      this.dialog.open(RelatorioComponent, {width: '700px', data:{relatorioDTO: relatorioResponse.relatorios}});
+      this.RelatorioDialog.open(RelatorioComponent, {width: '70%', data:{relatorioDTO: relatorioResponse.relatorios}});
     });
+  }
+
+  graphics() {
+    this.consultorService.getGraphics(this.childMessage).subscribe(graphicsResponse =>{
+      this.GraphicsDialog.open(GraphicsComponent, {width: '50%', data:{graphicsDTO: graphicsResponse.graphics}});
+    })
   }
 }
