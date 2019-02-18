@@ -1,6 +1,6 @@
 export class RelatorioDetail{
-  date: Date;
-  recaitaLiquida: number;
+  date: string;
+  receitaLiquida: number;
   custoFixo: number;
   comissao: number;
   lucro: number;

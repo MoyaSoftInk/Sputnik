@@ -1,0 +1,49 @@
+<mat-dialog-content>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!-- Fecha Column -->
+    <ng-container matColumnDef="periodo">
+      <th mat-header-cell *matHeaderCellDef> Fecha </th>
+      <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+    </ng-container>
+
+    <!-- receitaLiquida Column -->
+    <ng-container matColumnDef="receitaLiquida">
+      <th mat-header-cell *matHeaderCellDef> Receita Liquida </th>
+      <td mat-cell *matCellDef="let element"> {{element.receitaLiquida | currency}} </td>
+    </ng-container>
+
+    <!-- custoFixo Column -->
+    <ng-container matColumnDef="custoFixo">
+      <th mat-header-cell *matHeaderCellDef> Custo Fixo </th>
+      <td mat-cell *matCellDef="let element"> {{element.custoFixo | currency}} </td>
+    </ng-container>
+
+    <!-- comissão Column -->
+    <ng-container matColumnDef="comissão">
+      <th mat-header-cell *matHeaderCellDef> Comissao </th>
+      <td mat-cell *matCellDef="let element"> {{element.comissao | currency}} </td>
+    </ng-container>
+
+    <!-- lucro Column -->
+    <ng-container matColumnDef="lucro">
+      <th mat-header-cell *matHeaderCellDef> Lucro </th>
+      <td mat-cell *matCellDef="let element"> {{element.lucro | currency}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- Group header -->
+    <ng-container matColumnDef="groupHeader">
+      <td colspan="999" mat-cell *matCellDef="let groupBy"><strong> Consultor: {{groupBy.initial}}</strong></td>
+    </ng-container>
+
+    <tr mat-row *matRowDef="let row; columns: ['groupHeader']; when: isGroup"> </tr>
+
+  </table>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close color="primary">Volver</button>
+</mat-dialog-actions>

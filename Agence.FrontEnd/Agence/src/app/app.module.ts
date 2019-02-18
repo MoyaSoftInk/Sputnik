@@ -24,17 +24,20 @@ import { MatTableModule,
    MatCheckboxModule,
    MatSelectModule,
    MatDatepickerModule,
-   MatNativeDateModule} from '@angular/material';
+   MatNativeDateModule,
+   MatDialogModule} from '@angular/material';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ConsultorListComponent } from './components/consultor-list/consultor-list.component';
 import { ActionComponent } from './components/action/action.component';
+import { RelatorioComponent } from './components/action/relatorio/relatorio.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ConsultorListComponent,
-    ActionComponent
+    ActionComponent,
+    RelatorioComponent
   ],
   imports: [
     HttpClientModule,
@@ -60,9 +63,11 @@ import { ActionComponent } from './components/action/action.component';
     MatCheckboxModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatDialogModule
   ],
   providers: [DatePipe],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents:[RelatorioComponent]
 })
 export class AppModule { }
