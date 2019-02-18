@@ -69,7 +69,27 @@
                 return BadRequest(ModelState);
             }
         }
- 
+
+        [EnableCors("MyPolicy")]
+        [HttpPost]
+        [Route("GetGraphics")]
+        public IActionResult GetGraphics([FromBody] RelatorioInput relatorioInput)
+        {
+            try
+            {
+                var result = this.consultorService.GetGraphics(relatorioInput);
+                if (result.StatusCode.Equals(HttpStatusCode.OK))
+                    return Ok(result);
+                else
+                    return BadRequest(result);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return BadRequest(ModelState);
+            }
+        }
+
         #endregion Methods
     }
 }

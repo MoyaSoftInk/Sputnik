@@ -1,8 +1,8 @@
-﻿using Agence.Core.Model.Response;
-using Agence.Domain.DTO;
-
-namespace Agence.Domain.Responses
+﻿namespace Agence.Domain.Responses
 {
+    using Agence.Core.Model.Response;
+    using Agence.Domain.DTO;
+
     public class ConsultorResponse : BaseResponse
     {
         public ConsultorResponse()

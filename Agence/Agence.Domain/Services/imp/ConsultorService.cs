@@ -132,6 +132,53 @@
             return relatorioResponse;
         }
 
+
+        public GraphicsResponse GetGraphics(RelatorioInput relatorioInput)
+        {
+            GraphicsResponse graphicsResponse = new GraphicsResponse();
+
+            RelatorioResponse relatorioResponse = new RelatorioResponse();
+            DateTime dateInit = DateTime.Parse(relatorioInput.DateInit);
+            DateTime dateEndt = DateTime.Parse(relatorioInput.DateEnd);
+            decimal averageCustoFixo = 0;
+            decimal totalReceitaLiquida = 0;
+
+            try
+            {
+                foreach (var consultor in relatorioInput.Consultors)
+                {
+                    GetRelatorio(ref relatorioResponse, consultor.CoUser, dateInit, dateEndt);
+                }
+
+                if (relatorioResponse.Relatorios.Any())
+                {
+                    this.CalculateAverageCustoFixo(ref averageCustoFixo, ref totalReceitaLiquida, relatorioResponse.Relatorios);
+                    
+                    foreach(var item in relatorioResponse.Relatorios)
+                    {
+                        GraphicsDTO graphics = new GraphicsDTO(item.CoUsuario, item.NoUsuario, item.TotalReceitaLiquida, averageCustoFixo);
+                        graphics.PercentageReceitaLiquida = this.CalculatePercentageReceitaLiquida(item.TotalReceitaLiquida, totalReceitaLiquida);
+                        graphicsResponse.Graphics.Add(graphics); ;
+                    }
+                    graphicsResponse.IsSucceded = true;
+                    graphicsResponse.Message = "Ok";
+                    graphicsResponse.StatusCode = HttpStatusCode.OK;
+                }
+                else
+                {
+                    graphicsResponse.IsSucceded = true;
+                    graphicsResponse.Message = "No Content";
+                    graphicsResponse.StatusCode = HttpStatusCode.NoContent;
+                }
+            }
+            catch (Exception ex)
+            {
+                relatorioResponse.IsSucceded = false;
+                relatorioResponse.Message = ex.Message;
+                relatorioResponse.StatusCode = HttpStatusCode.BadRequest;
+            }
+            return graphicsResponse;
+        }
         #endregion
 
         #region Private Methods
@@ -224,6 +271,34 @@
             relatorioDTO.TotalLucro = relatorioDTO.RelatorioDetails.Sum(c => c.Lucro);
             relatorioDTO.TotalComissao = relatorioDTO.RelatorioDetails.Sum(c => c.Comissao);
             relatorioDTO.TotalCustoFixo = relatorioDTO.RelatorioDetails.Sum(c => c.CustoFixo);
+        }
+        
+        /// <summary>
+        /// Calculate the custoFixo of consultors
+        /// </summary>
+        /// <param name="averageCustoFixo"></param>
+        /// <param name="relatorios"></param>
+        private void CalculateAverageCustoFixo(ref decimal averageCustoFixo, ref decimal totalReceitaLiquida, IList<RelatorioDTO> relatorios)
+        {
+            decimal relatorioTotal = 0;
+            totalReceitaLiquida = 0;
+            foreach(var item in relatorios)
+            {
+                relatorioTotal += item.TotalCustoFixo;
+                totalReceitaLiquida += item.TotalReceitaLiquida;
+            }
+            averageCustoFixo = relatorioTotal / relatorios.Count;
+        }
+
+        /// <summary>
+        /// Calculate Percentage of consultors
+        /// </summary>
+        /// <param name="totalReceitaLiquidaPerConsultor"></param>
+        /// <param name="totalReceitaLiquida"></param>
+        /// <returns></returns>
+        private decimal CalculatePercentageReceitaLiquida(decimal totalReceitaLiquidaPerConsultor, decimal totalReceitaLiquida)
+        {
+            return (Math.Round((totalReceitaLiquidaPerConsultor * 100) / totalReceitaLiquida, 2));
         }
         #endregion
     }

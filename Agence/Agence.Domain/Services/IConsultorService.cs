@@ -17,5 +17,12 @@
         /// <param name="relatorioInput"></param>
         /// <returns></returns>
         RelatorioResponse GetRelatorio(RelatorioInput relatorioInput);
+
+        /// <summary>
+        /// Get graphics of consultors
+        /// </summary>
+        /// <param name="relatorioInput"></param>
+        /// <returns></returns>
+        GraphicsResponse GetGraphics(RelatorioInput relatorioInput);
     }
 }
