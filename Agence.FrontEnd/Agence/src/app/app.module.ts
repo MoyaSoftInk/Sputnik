@@ -32,6 +32,7 @@ import { ConsultorListComponent } from './components/consultor-list/consultor-li
 import { ActionComponent } from './components/action/action.component';
 import { RelatorioComponent } from './components/action/relatorio/relatorio.component';
 import { GraphicsComponent } from './components/action/graphics/graphics.component';
+import { PizzaComponent } from './components/action/pizza/pizza.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { GraphicsComponent } from './components/action/graphics/graphics.compone
     ConsultorListComponent,
     ActionComponent,
     RelatorioComponent,
-    GraphicsComponent
+    GraphicsComponent,
+    PizzaComponent
   ],
   imports: [
     HttpClientModule,

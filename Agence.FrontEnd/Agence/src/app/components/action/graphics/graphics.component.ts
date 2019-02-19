@@ -3,7 +3,6 @@ import {
   Inject,
   ViewChild,
   ElementRef,
-  AfterViewInit,
   OnInit
 } from '@angular/core';
 
@@ -26,23 +25,55 @@ export class GraphicsComponent implements OnInit {
   lastDate = 0;
   title = 'sonar-trading';
   graphics: GraphicsDTO[];
+  isPizza: boolean;
 
   @ViewChild('chart')
   chart: ElementRef;
-  constructor(public dialogRef: MatDialogRef<GraphicsComponent>, @Inject(MAT_DIALOG_DATA) public graphicsInterface: GraphicsInterface)
-  {
+  constructor(public dialogRef: MatDialogRef<GraphicsComponent>, @Inject(MAT_DIALOG_DATA) public graphicsInterface: GraphicsInterface) {
 
 
     this.graphics = this.graphicsInterface.graphicsDTO;
-
-    console.log(this.graphics);
+    this.isPizza = this.graphicsInterface.isPizza;
     this.prepairData();
-    console.log(this.data);
-    console.log(this.categories);
   }
 
   ngOnInit() {
 
+    if (this.isPizza) {
+      this.buildGraphicPizza();
+    }
+    else {
+      this.buildGraphicColums();
+    }
+
+
+  }
+
+  getDayWiseTimeSeries(baseval, count, yrange) {
+    let i = 0;
+    while (i < count) {
+      const x = baseval;
+      const y =
+        Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
+      this.data.push({
+        x,
+        y,
+      });
+      this.lastDate = baseval;
+      baseval += 86400000;
+      i++;
+    }
+  }
+
+  prepairData() {
+    this.graphics.forEach(c => {
+      this.data.push(c.receita);
+      this.categories.push(c.noUsuario);
+      this.custoFixo.push(c.promCustoFixo);
+    });
+  }
+
+  private buildGraphicColums() {
     var options = {
       annotations: {
         points: [{
@@ -120,31 +151,34 @@ export class GraphicsComponent implements OnInit {
     const chart = new ApexCharts(this.chart.nativeElement, options);
     chart.render();
     const dataPointsLength = 10;
-
   }
 
-  getDayWiseTimeSeries(baseval, count, yrange) {
-    let i = 0;
-    while (i < count) {
-      const x = baseval;
-      const y =
-        Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
-      this.data.push({
-        x,
-        y,
-      });
-      this.lastDate = baseval;
-      baseval += 86400000;
-      i++;
+  private buildGraphicPizza() {
+    var options = {
+      chart: {
+        width: 400,
+        type: 'pie',
+      },
+      labels: this.categories,
+      series: this.data,
+      legend:{
+        position: 'bottom'
+      },
+      responsive: [{
+        breakpoint: 200,
+        options: {
+          chart: {
+            width: 200
+          },
+          legend: {
+            position: 'bottom'
+          }
+        }
+      }]
     }
-  }
-
-  prepairData(){
-    this.graphics.forEach(c => {
-      this.data.push(c.receita);
-      this.categories.push(c.noUsuario);
-      this.custoFixo.push(c.promCustoFixo);
-    });
+    const chart = new ApexCharts(this.chart.nativeElement, options);
+    chart.render();
+    const dataPointsLength = 10;
   }
 }
 

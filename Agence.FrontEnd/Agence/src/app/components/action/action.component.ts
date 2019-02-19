@@ -5,6 +5,7 @@ import {MatDialog, MatDialogConfig} from '@angular/material';
 import { RelatorioComponent } from './relatorio/relatorio.component';
 import { RelatorioDTO } from 'src/app/models/dto/relatorioDTO';
 import { GraphicsComponent } from './graphics/graphics.component';
+import { PizzaComponent } from './pizza/pizza.component';
 
 
 @Component({
@@ -37,7 +38,13 @@ export class ActionComponent implements OnInit {
 
   graphics() {
     this.consultorService.getGraphics(this.childMessage).subscribe(graphicsResponse =>{
-      this.GraphicsDialog.open(GraphicsComponent, {width: '50%', data:{graphicsDTO: graphicsResponse.graphics}});
+      this.GraphicsDialog.open(GraphicsComponent, {width: '50%', data:{graphicsDTO: graphicsResponse.graphics, isPizza: false}});
+    })
+  }
+
+  pizza() {
+    this.consultorService.getGraphics(this.childMessage).subscribe(graphicsResponse =>{
+      this.GraphicsDialog.open(GraphicsComponent, {width: '35%', data:{graphicsDTO: graphicsResponse.graphics, isPizza: true}});
     })
   }
 }
