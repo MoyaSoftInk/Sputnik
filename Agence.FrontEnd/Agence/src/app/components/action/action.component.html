@@ -1,11 +1,11 @@
-<mat-list>
-  <mat-list-item>
+<mat-grid-list cols="3" rowHeight="2:1">
+  <mat-grid-tile>
     <button mat-raised-button color="primary" (click)="relatorio()">Relatorio</button>
-  </mat-list-item>
-  <mat-list-item>
-    <button mat-raised-button color="accent" (click)="graphics()">Gráfica</button>
-  </mat-list-item>
-  <mat-list-item>
-    <button mat-raised-button color="warn" (click)="pizza()">Pizza</button>
-  </mat-list-item>
-</mat-list>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button color="primary" (click)="graphics()">Gráfica</button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button color="primary" (click)="pizza()">Pizza</button>
+  </mat-grid-tile>
+</mat-grid-list>
