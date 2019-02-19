@@ -1,21 +1,18 @@
-<div [formGroup]="formGroup" class="controles-container">
+<div class="normal-form">
+  <div [formGroup]="formGroup" class="controles-container">
     <mat-form-field>
-      <input formControlName="initDate" matInput [(ngModel)]="dateInit" [matDatepicker]="picker" placeholder="Fecha Inicial">
+      <input formControlName="initDate" matInput [(ngModel)]="dateInit" [matDatepicker]="picker" placeholder="Fecha Inicial" [(ngModel)]="dateInit" (blur)="dateInitMethod()" >
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <mat-form-field>
-      <input formControlName="endDate" [(ngModel)]="dateEnd" matInput [matDatepicker]="picker2" placeholder="Fecha Fin">
+      <input formControlName="endDate" [(ngModel)]="dateEnd" matInput [matDatepicker]="picker2" placeholder="Fecha Fin" [(ngModel)]="dateEnd" (blur)="dateEndMethod()">
       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
   </div>
-
   <div class="search-div">
-    <button mat-raised-button style="margin: 0.5px">
-      <mat-icon>add</mat-icon>Create
-    </button>
-    <mat-form-field class="search-form-field" floatLabel="never" style="margin: 0.5px">
+    <mat-form-field class="search-form-field" floatLabel="never">
       <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
       <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
         <mat-icon>close</mat-icon>
@@ -50,3 +47,4 @@
     </mat-table>
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
   </div>
+</div>

@@ -90,14 +90,21 @@ export class ConsultorListComponent implements OnInit {
   }
 
   sendMessage() {
-    console.log(this.dateInit);
     this.relatorioInput.DateInit = this.changeFormatDate(this.dateInit);
-    console.log(this.dateEnd);
     this.relatorioInput.DateEnd = this.changeFormatDate(this.dateEnd);
     this.messageEvent.emit(this.relatorioInput);
   }
 
   private changeFormatDate(date: string): string {
     return this.datepipe.transform(date, 'yyyy-MM-dd');
+  }
+
+  dateInitMethod(){
+    this.relatorioInput.DateInit = this.changeFormatDate(this.dateInit);
+    this.messageEvent.emit(this.relatorioInput);
+  }
+  dateEndMethod(){   
+    this.relatorioInput.DateEnd = this.changeFormatDate(this.dateEnd);
+    this.messageEvent.emit(this.relatorioInput);
   }
 }
