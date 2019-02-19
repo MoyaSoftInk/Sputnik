@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
+using System.IO;
 
 namespace Agence
 {
@@ -90,7 +91,15 @@ namespace Agence
             }
             else
             {
-                app.UseHsts();
+                app.Use(async (context, next) =>
+                {
+                    await next();
+                    if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
+                    {
+                        context.Request.Path = "/index.html";
+                        await next();
+                    }
+                });
             }
             app.UseCors("MyPolicy");
 
@@ -102,6 +111,7 @@ namespace Agence
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Agence RestAPI");
             });
+            app.UseStaticFiles();
 
             app.UseHttpsRedirection();
             app.UseMvc();
