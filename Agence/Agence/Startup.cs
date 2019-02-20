@@ -29,7 +29,7 @@ namespace Agence
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            services.AddCors(o => o.AddPolicy("http://moya-agence-test.azurewebsites.net/", builder =>
             {
                 builder.AllowAnyOrigin()
                        .AllowAnyMethod()
@@ -101,7 +101,7 @@ namespace Agence
                     }
                 });
             }
-            app.UseCors("MyPolicy");
+            app.UseCors("http://moya-agence-test.azurewebsites.net/");
 
             app.UseSwagger();
 

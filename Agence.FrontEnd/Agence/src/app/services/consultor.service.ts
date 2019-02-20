@@ -11,7 +11,7 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-const baseUri = 'https://localhost:44365/api/Consultor/';
+const baseUri = 'https://moya-agence-test.azurewebsites.net/api/Consultor/';
 
 @Injectable({
   providedIn: 'root'

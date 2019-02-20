@@ -29,7 +29,7 @@
 
         #region Methods
 
-        [EnableCors("MyPolicy")]
+        [EnableCors("http://moya-agence-test.azurewebsites.net/")]
         [HttpGet]
         [Route("GetConsultors")]
 
@@ -50,7 +50,7 @@
             }
         }
 
-        [EnableCors("MyPolicy")]
+        [EnableCors("http://moya-agence-test.azurewebsites.net/")]
         [HttpPost]
         [Route("GetRelatorio")]
         public IActionResult GetRelatorio([FromBody] RelatorioInput relatorioInput)
@@ -70,7 +70,7 @@
             }
         }
 
-        [EnableCors("MyPolicy")]
+        [EnableCors("http://moya-agence-test.azurewebsites.net/")]
         [HttpPost]
         [Route("GetGraphics")]
         public IActionResult GetGraphics([FromBody] RelatorioInput relatorioInput)
